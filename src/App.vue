@@ -34,7 +34,7 @@ export default {
 
       return `https://www.youtube-nocookie.com/embed/${escapedVideoId}?loop=${
         loop.value ? '1' : '0'
-      }&playlist=${escapedVideoId}&rel=0`;
+      }&playlist=${escapedVideoId}&rel=0&autoplay=1`;
     });
 
     return {
@@ -54,7 +54,7 @@ export default {
         :src="embedURL$$q"
         class="w-full h-full"
         frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="autoplay; encrypted-media"
         allowfullscreen
       ></iframe>
     </template>
