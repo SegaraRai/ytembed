@@ -32,7 +32,7 @@ export default {
 
       const escapedVideoId = encodeURIComponent(videoId);
 
-      return `https://www.youtube-nocookie.com/embed/${escapedVideoId}?loop=${
+      return `https://www.youtube.com/embed/${escapedVideoId}?loop=${
         loop.value ? '1' : '0'
       }&playlist=${escapedVideoId}&rel=0&autoplay=1`;
     });
@@ -54,7 +54,7 @@ export default {
         :src="embedURL$$q"
         class="w-full h-full"
         frameborder="0"
-        allow="autoplay; encrypted-media"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe>
     </template>
