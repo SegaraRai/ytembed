@@ -22,6 +22,7 @@ export default {
 
     const navBarVisible = ref(true);
     const loop = ref(true);
+    const hide = ref(false);
     const videoURL = ref(searchParams.get('v') || '');
 
     const embedURL = computed(() => {
@@ -40,6 +41,7 @@ export default {
     return {
       navBarVisible$$q: navBarVisible,
       loop$$q: loop,
+      hide$$q: hide,
       videoURL$$q: videoURL,
       embedURL$$q: embedURL,
     };
@@ -50,30 +52,40 @@ export default {
 <template>
   <main class="fixed w-full h-full">
     <template v-if="embedURL$$q">
-      <iframe
-        :src="embedURL$$q"
+      <div
         class="w-full h-full"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+        :style="{ display: hide$$q ? 'none' : 'block' }"
+      >
+        <iframe
+          :src="embedURL$$q"
+          class="w-full h-full"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
     </template>
   </main>
-  <header class="fixed w-full flex items-center h-12">
+  <header class="fixed w-full flex flex-no-wrap flex-no-wrap items-stretch">
     <div
-      class="bg-gray-800 w-6 h-full"
+      class="bg-gray-800 w-6"
+      :class="[!navBarVisible$$q && 'h-12']"
       @click.stop="navBarVisible$$q = !navBarVisible$$q"
     ></div>
     <div
       v-show="navBarVisible$$q"
-      class="bg-gray-900 flex-grow flex items-center justify-between px-6 py-2 w-full h-full"
+      class="bg-gray-900 flex-grow flex flex-wrap items-center justify-between px-6 py-2 w-full h-full"
     >
       <input
         v-model="videoURL$$q"
-        class="bg-white text-black block w-full border px-2 py-1 appearance-none leading-tight"
+        class="bg-white text-black block w-full mb-2 sm:mb-0 sm:w-auto flex-grow border px-2 py-1 appearance-none leading-tight"
         type="url"
       />
-      <label class="flex items-center flex-grow mx-8 font-medium">
+      <label class="flex items-center flex-grow-0 ml-8 font-medium">
+        <input v-model="hide$$q" class="leading-tight" type="checkbox" />
+        Hide
+      </label>
+      <label class="flex items-center flex-grow-0 mx-8 font-medium">
         <input v-model="loop$$q" class="mr-2 leading-tight" type="checkbox" />
         Loop
       </label>
